@@ -2,7 +2,7 @@ function mapClass(mapId) {
 	// 地图的单位是像素
 	// 地图的大小
 	this.mapId = mapId;
-	this.width = 90;
+	this.width = 95.5;
 	this.height = 67.5;
 	
 	this.left = 0;
@@ -53,11 +53,11 @@ mapClass.prototype.show = function() {
 	var leftMax = this.width - this.sight.width * 2;
 	var upMax = this.height - this.sight.height * 2;
 	this.left = Math.max(0, this.pos.x - this.sight.width);
-	this.left = Math.min(this.left, leftMax);
+	this.left = Math.floor(Math.min(this.left, leftMax));
 	this.up = Math.max(0, this.pos.y - this.sight.height);
-	this.up = Math.min(this.up, upMax);
-	var right = this.left + this.sight.width * 2;
-	var down = this.up + this.sight.height * 2;
+	this.up = Math.floor(Math.min(this.up, upMax));
+	var right = Math.floor(this.left + this.sight.width * 2);
+	var down = Math.floor(this.up + this.sight.height * 2);
 	
 	//计算图片的索引
 	var xStart = Math.floor((this.left * grid.width) / this.quad.width);
@@ -85,8 +85,7 @@ mapClass.prototype.show = function() {
 // 地图移动
 // offsetX,offsetY 分别表示离视图左上点的偏移
 // return 地图的左上点的坐标变化值
-mapClass.prototype.moveTo = function(offsetX, offsetY) {
-	var newPos = this.offset2pos(offsetX, offsetY);
+mapClass.prototype.moveTo = function(newPos) {
 	if(newPos != this.pos) {
 		this.pos.x = newPos.x;
 		this.pos.y = newPos.y;

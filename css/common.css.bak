@@ -38,12 +38,12 @@ body
 {
 	position: absolute;
 	left: 20px;
-	top: 40px;
+	top: 50px;
 }
 
 .playerContainer
 {
 	position: absolute;
 	left: 20px;
-	top: 40px;
+	top: 50px;
 }

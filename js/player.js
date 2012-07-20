@@ -3,8 +3,8 @@ function Player() {
 	this.id = 0;
 	//玩家的当前坐标
 	this.pos = {
-		x: 5,
-		y: 5
+		x: 10,
+		y: 10
 	};
 	
 	// 玩家的面向
@@ -28,49 +28,46 @@ function Player() {
 // 计算玩家的移动路线
 Player.prototype.calcMovePath = function(dx, dy) {
 	// 清除原先的路径
-	this.movePath = new Array();
+	this.movePath = [];
 	var x = this.pos.x;
 	var y = this.pos.y;
-	while(x < dx){
-		this.movePath.push(Direction.RIGHT);
-		x ++;
-	}
-	while(x > dx){
-		this.movePath.push(Direction.LEFT);
-		x --;
-	}
-	while(y < dy){
-		this.movePath.push(Direction.DOWN);
-		y ++;
-	}
-	while(y > dy){
-		this.movePath.push(Direction.UP);
-		y --;
-	}
-		
+	
+	var start = graph.nodes[y][x];
+	var end = graph.nodes[dy][dx];
+	this.movePath = astar.search(graph.nodes, start, end);
+	console.log("a star:");
+	console.log(this.pos.x.toString() + "," + this.pos.y.toString());
+	console.log(this.movePath);
+	console.log([dx,dy]);
 }
 // 计算玩家的下一个动作
 Player.prototype.nextAction = function() {
+    var nextGrid = 0;
 	switch(this.state){
 		case PlayerState.MOVE:
-			if(this.movePath.length == 0)
-			{
+			if(this.movePath.length == 0){
 				this.state = PlayerState.STOP;
 				this.imageIndex = 0;
+			}else{
+				nextGrid = this.movePath.shift();
 			}
-			else
-				this.direction = this.movePath.shift();
 			break;
 		case PlayerState.STOP:
 			if(this.movePath.length != 0){
 				this.state = PlayerState.MOVE;
-				this.direction = this.movePath.shift();
+				nextGrid = this.movePath.shift();
 				this.imageIndex = 0;
 			}
 			break;
 		}
 		// 根据移动路径修改坐标
-		this._nextPos();
+		//this._nextPos();
+		if(nextGrid === 0){
+	    }else{
+		    this._calcDirect(nextGrid.y, nextGrid.x);
+		    this.pos.x = nextGrid.y;
+		    this.pos.y = nextGrid.x;
+		}
 		this._nextImageIndex();
 }
 
@@ -109,4 +106,30 @@ Player.prototype._nextPos = function() {
 				break;
 		}
 	}
+}
+
+Player.prototype._calcDirect = function (x, y) {
+    if(this.pos.x < x){
+        if(this.pos.y < y){
+            this.direction = Direction.RIGHT_DOWN;
+        }else if(this.pos.y == y){
+            this.direction = Direction.RIGHT;
+        }else{
+            this.direction = Direction.RIGHT_UP;
+        }
+    }else if(this.pos.x == x){
+        if(this.pos.y < y){
+            this.direction = Direction.DOWN;
+        }else{
+            this.direction = Direction.UP;
+        }
+    }else{
+        if(this.pos.y < y){
+            this.direction = Direction.LEFT_DOWN;
+        }else if(this.pos.y == y){
+            this.direction = Direction.LEFT;
+        }else{
+            this.direction = Direction.LEFT_UP;
+        }
+    }
 }

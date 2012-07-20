@@ -1,4 +1,6 @@
-var loader = new PxLoader(); 
+var loader = new PxLoader();
+var graph = new Graph(mask);
+var mycars = [[1,0,1,0],[1,2,3,4]]; 
 var Direction = {
 	DOWN: 0,
 	RIGHT_DOWN: 1,

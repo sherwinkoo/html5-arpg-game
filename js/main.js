@@ -1,6 +1,7 @@
 var map;
 var player_mgr;
 var player = new Player();
+var player2 = new Player();
 
 function start()
 {
@@ -22,6 +23,7 @@ function start()
 	loader.addCompletionListener(function() { 
 		player_mgr.start();
 		player_mgr.add(player);
+		player_mgr.add(player2);
 		setInterval(redraw, 200);
 		//drawGrid();
 		map.show();
@@ -32,12 +34,14 @@ function start()
 }
 
 function redraw() {
+	map.moveTo(player_mgr.players[0].pos);
+	player_mgr.left = map.left;
+	player_mgr.top = map.up;
 	player_mgr.redraw();
 }
 
 function onClick(Event) {
 	var pos = map.offset2pos(Event.offsetX, Event.offsetY);
 	player_mgr.players[0].calcMovePath(pos.x, pos.y);
-	map.moveTo(Event.offsetX, Event.offsetY);
-	effect.onMove(Event.offsetX, Event.offsetY);
+	player_mgr.redraw();
 }

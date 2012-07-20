@@ -4,15 +4,23 @@
 		<link rel="Stylesheet" type="text/css" href="css/common.css"></link>
 		<script type="text/javascript" src="js/PxLoader.js"></script>
 		<script type="text/javascript" src="js/PxLoaderImage.js"></script>
-		<script src="js/util.js"></script>
-		<script src="js/map_controller.js"></script>
-		<script src="js/player.js"></script>
-		<script src="js/player_mgr.js"></script>
-		<script src="js/effect.js"></script>
-		<script src="js/main.js"></script>
+		<script type="text/javascript" src="img/11001//map_mask.js"></script>
+		<script type="text/javascript" src="js/graph.js"></script>
+		<script type="text/javascript" src="js/astar.js"></script>
+		<script type="text/javascript" src="js/util.js"></script>
+		<script type="text/javascript" src="js/map_controller.js"></script>
+		<script type="text/javascript" src="js/player.js"></script>
+		<script type="text/javascript" src="js/player_mgr.js"></script>
+		<script type="text/javascript" src="js/effect.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
 		<title>屠龙</title>
 	</head>
 	<body onload="start()">
+		<div class="login_container" style="background-color:white; align:center; width: 1200;position: absolute;left:20px">
+			服务器IP：<input id="server" type="text" value="127.0.0.1"/>
+			帐号：<input id="username" type="text"/>
+			<input type="button" value="进入游戏"></input>
+		</div>
 		<div class="gameContainer">
 			<div class="mapContainer" id="map">
 				<canvas id="game_map" width="1200" height="600"></canvas>
