@@ -1,6 +1,14 @@
+var browser;
 var loader = new PxLoader();
 var graph = new Graph(mask);
-var mycars = [[1,0,1,0],[1,2,3,4]]; 
+var BrowserType = {
+	IE : 1,
+	FX : 2,
+	Chrome : 3,
+	Safari : 4,
+	Other : 5
+};
+
 var Direction = {
 	DOWN: 0,
 	RIGHT_DOWN: 1,
@@ -38,4 +46,44 @@ function drawImage(ctx, Image, x, y, opposite){
 		ctx.drawImage(Image, x, y);
 	}
 }
+
+function getBrowser() 
+{ 
+   var OsObject = ""; 
+   if(navigator.userAgent.indexOf("MSIE")>0) { 
+   		browser = BrowserType.IE;
+        return "MSIE"; 
+   }else if(navigator.userAgent.indexOf("Firefox")>0){ 
+   		browser = BrowserType.FX;
+        return "Firefox"; 
+   }else if(navigator.userAgent.indexOf("Chrome")>0){ 
+   		browser = BrowserType.Chrome;
+        return "Chrome"; 
+   }else if(navigator.userAgent.indexOf("Safari")>0) { 
+   		browser = BrowserType.Safari;
+        return "Safari"; 
+   }else if(navigator.userAgent.indexOf("Camino")>0){ 
+   		browser = BrowserType.Other;
+        return "Camino"; 
+   }else if(navigator.userAgent.indexOf("Gecko/")>0){ 
+   		browser = BrowserType.Other;
+        return "Gecko"; 
+   } 
+   
+}
+
+function getEventPos(Event) {
+	if(browser == BrowserType.FX) {
+		return {x:Event.clientX, y:Event.clientY};
+	}else if(browser == BrowserType.Chrome) {
+		return {x:Event.offsetX, y:Event.offsetY};
+	}
+}
+
+
+function $(Id) {
+	return document.getElementById(Id);
+}
+
+getBrowser();
 

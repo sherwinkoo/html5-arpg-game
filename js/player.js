@@ -35,10 +35,10 @@ Player.prototype.calcMovePath = function(dx, dy) {
 	var start = graph.nodes[y][x];
 	var end = graph.nodes[dy][dx];
 	this.movePath = astar.search(graph.nodes, start, end);
-	console.log("a star:");
-	console.log(this.pos.x.toString() + "," + this.pos.y.toString());
-	console.log(this.movePath);
-	console.log([dx,dy]);
+	//console.log("a star:");
+	//console.log(this.pos.x.toString() + "," + this.pos.y.toString());
+	//console.log(this.movePath);
+	//console.log([dx,dy]);
 }
 // 计算玩家的下一个动作
 Player.prototype.nextAction = function() {

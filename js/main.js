@@ -27,6 +27,7 @@ function start()
 		setInterval(redraw, 200);
 		//drawGrid();
 		map.show();
+		//proto.connect();
 	}); 
  
 	// begin downloading images
@@ -41,7 +42,13 @@ function redraw() {
 }
 
 function onClick(Event) {
-	var pos = map.offset2pos(Event.offsetX, Event.offsetY);
+	var tmpos = getEventPos(Event);
+	var pos = map.offset2pos(tmpos.x, tmpos.y);
 	player_mgr.players[0].calcMovePath(pos.x, pos.y);
 	player_mgr.redraw();
+}
+
+// µÇÂ½ÓÎÏ·
+function login_game() {
+	proto.connect();
 }
