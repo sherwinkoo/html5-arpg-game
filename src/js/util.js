@@ -75,7 +75,9 @@ function getBrowser()
 function getEventPos(Event) {
 	if(browser == BrowserType.FX) {
 		return {x:Event.clientX, y:Event.clientY};
-	}else if(browser == BrowserType.Chrome) {
+	} else if(browser == BrowserType.Chrome) {
+		return {x:Event.offsetX, y:Event.offsetY};
+	} else if(browser == BrowserType.Safari) {
 		return {x:Event.offsetX, y:Event.offsetY};
 	}
 }
